@@ -100,7 +100,7 @@ class App
     // Initialize props
     this.props = {
       env: this.env,
-      title: 'Template',
+      title: 'Redistricting Research',
       roles: {},
       actions: this.actions,
       isAnon: false,

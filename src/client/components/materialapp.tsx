@@ -26,6 +26,8 @@ import * as ProgressView from './progressview';
 import * as STV from './statictextview';
 import * as Hash from '../hash';
 
+import * as AnlzView from './analyticsview';
+
 export const appBarHeight: number = 48;       // Calculated sizes other other panes based on this
 export const appBackgroundColor: string = '#fafafa';
 
@@ -527,6 +529,22 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     return ( <div className={classes.table}>
               <TV.TableView {...tvProps} />
              </div>);
+  }
+
+  renderAnalyticsView(): JSX.Element
+  {
+    /*
+    const {classes, env, roles, curModel, pageView, actions, designSize} = this.props;
+    const {redistrict, analyticsWrapper, sessionID} = curModel.derivedProps;
+    const {state, datasource} = curModel.dataContext;
+
+    return (<AnlzView.AnalyticsView
+      {...{actions, curModel, xx: stateXX, env, roles, designSize,
+        bHidePartisanData, openView: pageView === MAPVIEW_ANLZ, vaptype: analyticsWrapper.vapType(),
+      }}
+    />);
+    */
+   return (<>Analytics</>);
   }
 
   renderViewers(): any[]
