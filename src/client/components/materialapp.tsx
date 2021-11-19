@@ -26,6 +26,9 @@ import * as ProgressView from './progressview';
 import * as STV from './statictextview';
 import * as Hash from '../hash';
 
+export const appBarHeight: number = 48;       // Calculated sizes other other panes based on this
+export const appBackgroundColor: string = '#fafafa';
+
 let AppActionID = 5000;
 export const ActionProfileEditField = AppActionID++;
 export const ActionProfileClose = AppActionID++;
@@ -596,6 +599,11 @@ let MaterialTheme: any = Material.createMuiTheme(
 let StyledMaterialApp: any = withStyles(AppStyles, { withTheme: true })(InternalMaterialApp);
 export const MaterialApp: new () => React.Component<AppProps, AppState> = StyledMaterialApp;
 
+export function isWide(designSize: DW): boolean
+{
+  return designSize >= DW.WIDE;
+}
+
 export function getTooltip(tip: string): any
 {
   return (
@@ -622,3 +630,4 @@ export function shortLabelOptionalTip(label: string): JSX.Element
     </Material.Tooltip> : <span>{labelP}</span>; 
 }
 
+export const MAPVIEW_ANLZ = 'anlz';
