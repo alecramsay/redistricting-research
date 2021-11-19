@@ -505,13 +505,13 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     let Columns: TV.ColumnList = [
       { id: 'name', fieldType: 'string', disablePadding: true, label: 'Name' },
       { id: 'isjson', fieldType: 'boolean', disablePadding: true, label: 'J?' },
-      { id: 'svcurve', fieldType: 'button', disablePadding: true, label: 'S–V Curve' },
+      { id: 'analyze', fieldType: 'button', disablePadding: true, label: 'Analyze' },
     ];
     function Sorter(rows: TV.RowList, orderBy: string, order: TV.Ordering): TV.RowList
     {
       return TV.TableViewSorter(rows, Columns, orderBy, order);
     }
-    let tablerows = rows.map((r: any) => { return ({ name: r.name, isjson: r.json != null, svcurve: 'Plot' }) });
+    let tablerows = rows.map((r: any) => { return ({ name: r.name, isjson: r.json != null, analyze: 'Analyze' }) });
     let tvProps: TV.TableViewProps = {
       actions: actions,
       selection: null,
