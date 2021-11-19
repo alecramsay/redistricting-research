@@ -192,9 +192,9 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
 
     // GET THE PARTISAN PROFILE & COMPUTE THE PARTISAN SCORECARD
 
-    this.name = 'SAMPLE';   // TODO - Wire this up to the file name
+    this.name = 'SAMPLE';   // HACK - Wire this up to the file name
 
-    this.profile = sample;  // TODO - Wire this up to the selected profile
+    this.profile = sample;  // HACK - Wire this up to the selected profile
 
     const bLog: boolean = true;
     const byDistrictVf: Types.VfArray = this.profile.byDistrict;
