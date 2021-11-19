@@ -59,6 +59,10 @@ class Actions extends ClientActions.ClientActions
       case ClientActions.Apply:
         this.app.actionApply(arg);
         break;
+
+      case ClientActions.SetRowToAnalyze:
+        this.app.actionSetRowToAnalyze(arg);
+        break;
     }
 
     return handled ? true : this._fire(id, arg);
@@ -112,6 +116,7 @@ class App
 
       // Content
       rows: [],
+      selectedRow: '',
     };
 
     this.handleResize = this.handleResize.bind(this);
@@ -248,6 +253,12 @@ class App
           });
         break;
     }
+  }
+
+  actionSetRowToAnalyze(id: string): void
+  {
+    this.props.selectedRow = id;
+    this.forceRender();
   }
 
   actionDownloadData(param: ClientActions.ParamDownloadData): void

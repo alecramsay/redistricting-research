@@ -132,6 +132,7 @@ export interface AppProps
 
   // Stuff to display
   rows: any[];
+  selectedRow: string;
 
   clearState?: boolean;
   classes?: any;
@@ -417,10 +418,41 @@ export function AppStyles(theme: any): any
   });
 }
 
+export class TableActions extends ClientActions.ClientActions
+{
+  actions: ClientActions.ClientActions;
+
+  constructor(env: Environment, actions: ClientActions.ClientActions)
+  {
+    super(env);
+    this.actions = actions;
+  }
+
+  fire(id: number, arg?: any): boolean
+  {
+    switch (id)
+    {
+      case ClientActions.SelectionClear:
+        break;
+      case ClientActions.SelectionEmpty:
+        break;
+      case ClientActions.SelectionDouble: // id
+      case ClientActions.SelectionSet: // id
+        break;
+      case ClientActions.TableButtonSelect:
+        console.log(`analyze button for ${arg.id}, ${arg.name} clicked`);
+        this.actions.fire(ClientActions.SetRowToAnalyze, arg.id);
+        break;
+    }
+    return true;
+  }
+}
+
 class InternalMaterialApp extends React.Component<AppProps, AppState>
 {
   env: Environment;
   appActions: AppActions;
+  tableActions: TableActions;
   viewers: ViewerIndex;
 
   constructor(props: AppProps)
@@ -430,6 +462,7 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     this.env = props.actions.env;
 
     this.appActions = new AppActions(this);
+    this.tableActions = new TableActions(this.env, props.actions);
     props.actions.mixin(this.appActions);
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -511,9 +544,9 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     {
       return TV.TableViewSorter(rows, Columns, orderBy, order);
     }
-    let tablerows = rows.map((r: any) => { return ({ name: r.name, isjson: r.json != null, analyze: 'Analyze' }) });
+    let tablerows = rows.map((r: any) => { return ({ id: r.id, name: r.name, isjson: r.json != null, analyze: 'Analyze' }) });
     let tvProps: TV.TableViewProps = {
-      actions: actions,
+      actions: this.tableActions,
       selection: null,
       columns: Columns,
       rows: tablerows,
@@ -533,6 +566,9 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
 
   renderAnalyticsView(): JSX.Element
   {
+    let rowToRender: any = this.props.rows.find((r: any) => r.id === this.props.selectedRow);
+    console.log(`renderAnalyticsView: ${rowToRender ? 'row to render' : 'no row to render'}`);
+
     /*
     const {classes, env, roles, curModel, pageView, actions, designSize} = this.props;
     const {redistrict, analyticsWrapper, sessionID} = curModel.derivedProps;
@@ -580,6 +616,7 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
           Pick Files
           </Material.Button>
           {this.renderTable()}
+          {this.renderAnalyticsView()}
         </div>
       </MuiThemeProvider>
     );
