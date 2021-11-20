@@ -566,6 +566,8 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
 
   renderAnalyticsView(): JSX.Element
   {
+    const {rows} = this.props;
+
     let rowToRender: any = this.props.rows.find((r: any) => r.id === this.props.selectedRow);
     if (rowToRender === undefined) return null;
 
@@ -598,7 +600,7 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     //   this.forceRender();
     // }
 
-    const {classes, env, roles, /* curModel, pageView, */ actions /*, designSize */} = this.props;
+    const {classes, env, roles, /* curModel, pageView, */ actions /*, designSize */, selectedRow} = this.props;
     // const {redistrict, analyticsWrapper, sessionID} = curModel.derivedProps;
     // const {state, datasource} = curModel.dataContext;
 
@@ -607,6 +609,7 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
     return (<AnlzView.AnalyticsView
       {...{actions, /* curModel, */ xx: stateXX, env, roles, designSize,
         bHidePartisanData, openView: true, /* vaptype: analyticsWrapper.vapType(), */
+        row: rows[+selectedRow]
       }}
     />);
   }

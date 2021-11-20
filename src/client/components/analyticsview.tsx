@@ -32,7 +32,7 @@ import * as ClientActions from '../clientactions';
 import { Partisan, Types, Utils } from '@dra2020/dra-analytics';
 
 // import sample from './sample-profile.json';
-const sample = require('./sample-profile.json');
+// const sample = require('./sample-profile.json');
 
 
 // ENUMS, META DATA, & FORMATTING HELPERS FOR ANALYTICS & SCORING UI
@@ -60,6 +60,8 @@ export interface AnalyticsViewProps
   actions: ClientActions.ClientActions,
   designSize: MA.DW,
   // vaptype: MA.VAPTYPE,
+
+  row: any,
 
   classes?: any,
   theme?: any,
@@ -167,7 +169,7 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
 
   render(): any
   {
-    const {classes, actions, env, openView, /* curModel, */ designSize, /* bHidePartisanData */} = this.props;
+    const {classes, actions, env, openView, /* curModel, */ designSize, /* bHidePartisanData, */ row} = this.props;
     // const {analyticsWrapper} = curModel.derivedProps;
 
     let links: {label: string, id: string}[] = [];
@@ -193,9 +195,11 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
 
     // GET THE PARTISAN PROFILE & COMPUTE THE PARTISAN SCORECARD
 
-    this.name = 'SAMPLE';   // HACK - Wire this up to the file name
+    this.name = row.name;
+    // this.name = 'SAMPLE';   // HACK - Wire this up to the file name
 
-    this.profile = sample;  // HACK - Wire this up to the selected profile
+    this.profile = row.json;
+    // this.profile = sample;  // HACK - Wire this up to the selected profile
 
     const bLog: boolean = true;
     const byDistrictVf: Types.VfArray = this.profile.byDistrict;
@@ -307,7 +311,7 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
 
     // BIND DATA FROM PROFILE & SCORECARD
 
-    const name = '[TODO]';
+    const name = this.name;
 
     // Unzip the D S/V curve points into separate V and S arrays.
     const dSVpoints: SVpoint[] = this.scorecard.dSVpoints;
