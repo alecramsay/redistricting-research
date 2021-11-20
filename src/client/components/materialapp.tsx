@@ -567,20 +567,48 @@ class InternalMaterialApp extends React.Component<AppProps, AppState>
   renderAnalyticsView(): JSX.Element
   {
     let rowToRender: any = this.props.rows.find((r: any) => r.id === this.props.selectedRow);
+    if (rowToRender === undefined) return null;
+
     console.log(`renderAnalyticsView: ${rowToRender ? 'row to render' : 'no row to render'}`);
 
-    /*
-    const {classes, env, roles, curModel, pageView, actions, designSize} = this.props;
-    const {redistrict, analyticsWrapper, sessionID} = curModel.derivedProps;
-    const {state, datasource} = curModel.dataContext;
+    const stateXX: string = 'TODO';
+    const bHidePartisanData: boolean = false;
+
+    // HACK - set the designSize <<< cloned from updateDesignSize() in client.tsx
+    let el: any = document.getElementById('root');
+    let w: number = el.clientWidth;
+    let h: number = el.clientHeight;
+
+    let designSize: DW;
+    if (w < 376)       designSize = DW.PHONE;
+    else if (w < 475)  designSize = DW.PHONEPLUS;
+    else if (w < 575)  designSize = DW.NARROW;
+    else if (w < 645)  designSize = DW.NARROWPLUS;
+    else if (w < 725)  designSize = DW.NARROWPLUS2;
+    else if (w < 770)  designSize = DW.TABLET;
+    else if (w < 870)  designSize = DW.MEDIUM;
+    else if (w < 930)  designSize = DW.MEDIUMPLUS;
+    else if (w < 1155) designSize = DW.WIDE;
+    else if (w < 1250) designSize = DW.WIDER;
+    else               designSize = DW.WIDEST;
+
+    // if (designSize !== this.props.designSize)
+    // {
+    //   this.props.designSize = designSize;
+    //   this.forceRender();
+    // }
+
+    const {classes, env, roles, /* curModel, pageView, */ actions /*, designSize */} = this.props;
+    // const {redistrict, analyticsWrapper, sessionID} = curModel.derivedProps;
+    // const {state, datasource} = curModel.dataContext;
+
+    // return (<>Analytics</>);
 
     return (<AnlzView.AnalyticsView
-      {...{actions, curModel, xx: stateXX, env, roles, designSize,
-        bHidePartisanData, openView: pageView === MAPVIEW_ANLZ, vaptype: analyticsWrapper.vapType(),
+      {...{actions, /* curModel, */ xx: stateXX, env, roles, designSize,
+        bHidePartisanData, openView: true, /* vaptype: analyticsWrapper.vapType(), */
       }}
     />);
-    */
-   return (<>Analytics</>);
   }
 
   renderViewers(): any[]

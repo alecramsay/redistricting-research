@@ -31,7 +31,8 @@ import * as ClientActions from '../clientactions';
 
 import { Partisan, Types, Utils } from '@dra2020/dra-analytics';
 
-const sample = require('../sample-profile.json');
+// import sample from './sample-profile.json';
+const sample = require('./sample-profile.json');
 
 
 // ENUMS, META DATA, & FORMATTING HELPERS FOR ANALYTICS & SCORING UI
@@ -322,7 +323,7 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
 
     // Pre-zoom the graph in on the region bounded by (0.5, 0.5) and (Vf, Sf)
 
-    const Vf: number = this.profile.partisanship.statewide;
+    const Vf: number = this.profile.statewide;
     const Sf: number = Vf - this.scorecard.bias.prop;
 
     // END BIND
@@ -557,7 +558,7 @@ class InternalAnalyticsView extends React.Component<AnalyticsViewProps, Analytic
       showlegend: false
     }
 
-    const statewideVf = this.profile.partisanship.statewide;
+    const statewideVf = this.profile.statewide;
     const nPts = 20;
     const statewideVfXs = [...Array(nPts + 1).keys()].map(x => statewideVf);
     const ruleYs = [...Array(nPts + 1).keys()].map(y => ((100 / nPts) * y) / 100);
